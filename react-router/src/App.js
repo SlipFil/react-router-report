@@ -1,41 +1,40 @@
 
 import './App.css';
-import {Offcanvas, Button, ListGroup} from "react-bootstrap";
-import {useState} from "react";
+import { Nav } from "react-bootstrap";
+import { Link, Route, Switch } from "react-router-dom";
+import News from './Components/News';
+import Home from './Components/Home';
+import Music from './Components/Music';
 
 
 function App() {
-  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   return (
     <div className="App">
 
+      <Nav variant="pills" defaultActiveKey="/" style={{borderBottom:'2px solid gray', paddingBottom:20, paddingTop:10}}>
+        <Nav.Item>
+          <Nav.Link href="/"><Link to={"/"} style={{ textDecoration: 'none', color: 'black' }} >Home </Link></Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/news"><Link to={"/news"} style={{ textDecoration: 'none', color: 'black' }}>News </Link></Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/music"><Link to={"/music"} style={{ textDecoration: 'none', color: 'black' }} >Music </Link></Nav.Link>
+        </Nav.Item>
+      </Nav>
+
+      <Switch>
+      <Route exact path='/' component={Home}/>
+      <Route path='/news' component={News}/>
+      <Route path='/music' component={Music}/>
+    </Switch>
 
 
-      <>
-        <Button variant="primary" onClick={handleShow}>
-          Show menu
-        </Button>
+      <div>
 
-        <Offcanvas show={show} onHide={handleClose}>
-          <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Menu</Offcanvas.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body>
-            <ListGroup as="ul">
-              <ListGroup.Item as="li" active>
-                Profile
-              </ListGroup.Item>
-              <ListGroup.Item as="li">News</ListGroup.Item>
-              <ListGroup.Item as="li" >Music</ListGroup.Item>
-              <ListGroup.Item as="li">Settings</ListGroup.Item>
-            </ListGroup>
+      </div>
 
-          </Offcanvas.Body>
-        </Offcanvas>
-      </>
 
     </div>
   );
